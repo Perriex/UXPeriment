@@ -1,0 +1,25 @@
+{
+  "background": {
+    "page": "background.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["contentscript.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": ["script_inpage.js"],
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_title": "Test 123"
+  },
+  "content_security_policy": "script-src 'self'; media-src *; object-src 'self'",
+  "description": "Simple Test 123.",
+
+  "manifest_version": 2,
+  "minimum_chrome_version": "18",
+  "name": "Test 123",
+  "permissions": ["unlimitedStorage", "http://*/", "tabs"],
+  "version": "2.6"
+}
