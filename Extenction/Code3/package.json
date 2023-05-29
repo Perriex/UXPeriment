@@ -1,0 +1,26 @@
+{
+  "name": "bipa",
+  "version": "1.0.0",
+  "description": "browser intelligent personal assistant",
+  "main": "startup.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Perriex/UXPeriment.git"
+  },
+  "keywords": [
+    "bipa"
+  ],
+  "author": "Parna Asadi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Perriex/UXPeriment/issues"
+  },
+  "homepage": "https://github.com/Perriex/UXPeriment#readme",
+  "devDependencies": {
+    "eslint": "^8.41.0"
+  }
+}

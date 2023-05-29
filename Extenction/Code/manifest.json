@@ -16,12 +16,10 @@
     },
     "default_title": "Uxperiment is inactive"
   },
-
   "background": {
     "scripts": ["js/background.js"],
     "persistent": false
   },
-
   "minimum_chrome_version": "52",
   "permissions": ["activeTab", "unlimitedStorage", "http://*/"]
 }
