@@ -1,6 +1,6 @@
 (function regex_search() {
   document.addEventListener("keydown", function (event) {
-    if (event.ctrlKey && event.key === "m") {
+    if (event.ctrlKey && event.key === "[") {
       let search = prompt("Type here");
 
       highlightRegex(search);
@@ -16,6 +16,20 @@
   });
 })();
 
+(function remove_regex_highlights() {
+  document.addEventListener("keydown", function (event) {
+    if (event.ctrlKey && event.key === "]") {
+      const classes = document.querySelectorAll(".BIPA-find-regex");
+      console.log(classes);
+      classes.forEach((div) => {
+        div.style = {};
+
+        div.classList.remove("BIPA-find-regex");
+      });
+    }
+  });
+})();
+
 function highlightRegex(regex) {
   const body = document.querySelector("body");
 
@@ -24,7 +38,7 @@ function highlightRegex(regex) {
 
   while (walk.nextNode()) {
     const node = walk.currentNode;
-    const matches = node.textContent.match(regex);
+    const matches = RegExp(regex, "ig").exec(node.textContent);
 
     if (matches) {
       nodes.push({ node, matches });
@@ -46,7 +60,8 @@ function highlightRegex(regex) {
 
       const span = document.createElement("span");
       span.textContent = matched;
-      span.style.backgroundColor = "lightblue";
+      span.style.backgroundColor = "yellow";
+      span.style.color = "black";
       span.className = "BIPA-find-regex";
       highlighted.appendChild(span);
 
