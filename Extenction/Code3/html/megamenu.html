@@ -1,0 +1,60 @@
+<section id="bipa-menu-container">
+  <div id="bipa-megamenu">
+    <ul id="bipa-menu-list"></ul>
+  </div>
+</section>
+<script defer>
+  const STORAGE_KEY = "storage_uxperiment_bipa";
+  const data = JSON.parse(localStorage.getItem(STORAGE_KEY));
+  console.log(data);
+  const menu = document.getElementById("bipa-menu-list");
+  console.log(menu);
+
+  const links = [];
+  data.urls.forEach((element) => {
+    if (!element.address) return;
+    const link = document.createElement("a");
+    link.href = element.address;
+    link.className = "bipa-menu-item";
+    link.innerText = element.name;
+    console.log(link);
+
+    menu.appendChild(link);
+  });
+</script>
+<style>
+  body {
+    position: relative;
+  }
+  #bipa-menu-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px;
+    background-color: #f4f4f4;
+    padding: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 8px 8px 20px #c3c3c3, -8px -8px 20px #ffffff;
+    z-index: 2147483647;
+  }
+  #bipa-menu-container .hide {
+    transform: translateX(-250px);
+  }
+  #bipa-menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  #bipa-menu-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+    margin: 1em;
+  }
+
+  #bipa-menu-list li:hover {
+    background-color: #ebebeb;
+  }
+</style>

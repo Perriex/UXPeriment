@@ -3,6 +3,12 @@
   "name": "BIPA",
   "description": "Browser intelligent personal assistant",
   "version": "1.0",
+  "web_accessible_resources": [
+    {
+      "resources": ["*/**"],
+      "matches": ["https://*/*"]
+    }
+  ],
   "content_scripts": [
     {
       "run_at": "document_start",
@@ -12,12 +18,16 @@
     {
       "run_at": "document_end",
       "matches": ["http://*/*", "https://*/*"],
-      "js": ["js/dom/view-recent-click.js", "js/dom/regex-search.js"]
+      "js": [
+        "js/dom/view-recent-click.js",
+        "js/dom/regex-search.js",
+        "js/dom/record-megamenu.js"
+      ]
     }
   ],
-  "browser_action": {
+  "action": {
     "default_popup": "html/index.html",
     "default_title": "Features"
   },
-  "permissions": ["activeTab"]
+  "permissions": ["activeTab", "nativeMessaging"]
 }

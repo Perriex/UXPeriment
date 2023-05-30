@@ -26,7 +26,7 @@ let recentHighlightStyle = null;
       const lastTrack = listOfClicks.pop();
 
       recentHighlight = lastTrack;
-      recentHighlightStyle = lastTrack.style;
+      recentHighlightStyle = lastTrack?.style ?? {};
       if (lastTrack) {
         lastTrack.style["background-color"] = "yellow";
         lastTrack.style["color"] = "black";
