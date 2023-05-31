@@ -35,26 +35,36 @@
     background-color: #f4f4f4;
     padding: 10px;
     transition: all 0.3s ease;
-    box-shadow: 8px 8px 20px #c3c3c3, -8px -8px 20px #ffffff;
+    box-shadow: 8px 8px 20px #c3c3c3, -4px -4px 10px #ffffff;
     z-index: 2147483647;
+    overflow: auto;
   }
-  #bipa-menu-container .hide {
+  #bipa-menu-container.hide {
     transform: translateX(-250px);
   }
   #bipa-menu-list {
-    list-style: none;
+    list-style: decimal;
     padding: 0;
     margin: 0;
+    text-align: justify;
   }
 
   #bipa-menu-list li {
     padding: 10px 0;
     border-bottom: 1px solid #ccc;
     cursor: pointer;
-    margin: 1em;
+    margin: 0.8em;
   }
 
   #bipa-menu-list li:hover {
     background-color: #ebebeb;
+  }
+
+  #bipa-img-wrapper {
+    width: 5em;
+    height: auto;
+    max-height: 4em;
+    overflow: hidden;
+    object-fit: cover;
   }
 </style>
