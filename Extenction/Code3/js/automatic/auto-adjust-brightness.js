@@ -14,6 +14,6 @@ const calculate_decreasement = (precent, hours) => {
     setInterval(() => {
       initDegree -= 1;
       changeBrightness(`${initDegree}%`);
-    }, calculate_decreasement(60, 2));
+    }, calculate_decreasement(40, 2));
   });
 })();
