@@ -15,7 +15,7 @@
   document.addEventListener("keydown", function (event) {
     if (event.ctrlKey && event.key === ",") {
       const element = document.querySelectorAll("#bipa-menu-container")[0];
-      element.removeAttribute("class");
+      if (isDataAvailable()) element.removeAttribute("class");
     }
   });
 })();
@@ -46,12 +46,12 @@
           count: 0,
           value: images[0].src,
         });
-      } else if (titles.length > 0) {
+      } else {
         data.urls.push({
           address: link,
-          value:
-            titles[0].innerText.slice(0, 50) +
-            (titles[0].innerText.length >= 50 ? "..." : ""),
+          value: word_break(
+            titles.length > 0 ? titles[0].innerText : origin.innerText
+          ),
           type: "title",
           count: 0,
         });
@@ -62,6 +62,10 @@
     }
   });
 })();
+
+function word_break(titles) {
+  return titles.slice(0, 50) + (titles.length >= 50 ? "..." : "");
+}
 
 // add HTML to page
 (async function inject_html() {
@@ -117,10 +121,9 @@ const getEventOFURLs = () => {
       if (p1.count > p2.count) return -1;
       return 0;
     })
-    .filter((item) => item.address !== window.location.href && item.count >= 0)
+    .filter((item) => item.address !== window.location.href && item.count > 0)
     .slice(0, 8);
 };
-
 
 // data storage
 const STORAGE_KEY = "storage_uxperiment_bipa";
@@ -128,6 +131,11 @@ const STORAGE_KEY = "storage_uxperiment_bipa";
 const getData = () => {
   const data = JSON.parse(localStorage.getItem(STORAGE_KEY));
   return data;
+};
+
+const isDataAvailable = () => {
+  const data = getEventOFURLs();
+  return data.length > 0;
 };
 
 const setData = (data) => {

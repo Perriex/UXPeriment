@@ -37,14 +37,14 @@
     transition: all 0.3s ease;
     box-shadow: 8px 8px 20px #c3c3c3, -4px -4px 10px #ffffff;
     z-index: 2147483647;
-    overflow: auto;
+    overflow: hidden;
   }
   #bipa-menu-container.hide {
-    transform: translateX(-250px);
+    transform: translateX(-300px);
   }
   #bipa-menu-list {
     list-style: decimal;
-    padding: 0;
+    padding: 0 0.2em;
     margin: 0;
     text-align: justify;
   }
@@ -53,7 +53,14 @@
     padding: 10px 0;
     border-bottom: 1px solid #ccc;
     cursor: pointer;
-    margin: 0.8em;
+    margin: 0 0.8em;
+  }
+
+  #bipa-menu-list li p {
+    padding: 0;
+    margin: 0;
+    word-break: break-all;
+    font-size: 14px;
   }
 
   #bipa-menu-list li:hover {

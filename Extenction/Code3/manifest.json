@@ -13,14 +13,20 @@
     {
       "run_at": "document_start",
       "matches": ["http://*/*", "https://*/*"],
-      "js": ["startup.js", "js/dom/add-lazy-loading-to-media.js"]
+      "js": [
+        "startup.js",
+        "js/automatic/add-lazy-loading-to-media.js",
+        "js/automatic/auto-adjust-brightness.js",
+        "js/automatic/block-ads.js"
+      ]
     },
     {
       "run_at": "document_end",
       "matches": ["http://*/*", "https://*/*"],
       "js": [
-        "js/dom/view-recent-click.js",
-        "js/dom/regex-search.js",
+        "js/manual/view-recent-click.js",
+        "js/manual/regex-search.js",
+        "js/manual/shadow-user.js",
         "js/dom/record-megamenu.js"
       ]
     }
@@ -29,5 +35,10 @@
     "default_popup": "html/index.html",
     "default_title": "Features"
   },
-  "permissions": ["activeTab", "nativeMessaging"]
+  "permissions": [
+    "activeTab",
+    "nativeMessaging",
+    "webRequest",
+    "declarativeNetRequest"
+  ]
 }

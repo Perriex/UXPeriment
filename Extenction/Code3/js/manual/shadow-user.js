@@ -1,0 +1,3 @@
+(function shadow_user() {
+    
+})();
