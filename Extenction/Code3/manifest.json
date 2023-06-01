@@ -13,11 +13,7 @@
     {
       "run_at": "document_start",
       "matches": ["http://*/*", "https://*/*"],
-      "js": [
-        "startup.js",
-        "js/automatic/add-lazy-loading-to-media.js",
-        "js/automatic/auto-adjust-brightness.js"
-      ]
+      "js": ["startup.js", "js/automatic/add-lazy-loading-to-media.js"]
     },
     {
       "run_at": "document_end",
@@ -25,11 +21,20 @@
       "js": [
         "js/manual/view-recent-click.js",
         "js/manual/regex-search.js",
-        "js/manual/shadow-user.js",
-        "js/dom/record-megamenu.js"
+        "js/dom/record-megamenu.js",
+        "js/dom/frequency-based-sort.js",
+        "js/dom/add-attributes-to-all.js"
       ]
+    },
+    {
+      "run_at": "document_idle",
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["js/manual/shadow-user.js"]
     }
   ],
+  "background": {
+    "service_worker": "js/script/background.js"
+  },
   "action": {
     "default_popup": "html/index.html",
     "default_title": "Features"
@@ -38,6 +43,7 @@
     "activeTab",
     "nativeMessaging",
     "webRequest",
-    "declarativeNetRequest"
+    "declarativeNetRequest",
+    "scripting"
   ]
 }

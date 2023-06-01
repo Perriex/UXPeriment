@@ -18,7 +18,7 @@
   document.addEventListener("keydown", function (event) {
     if (event.ctrlKey && (event.key === "," || event.key === "و")) {
       const element = document.querySelector("#bipa-menu-container");
-      if (isDataAvailable()) element.removeAttribute("class");
+      if (is_data_available()) element.removeAttribute("class");
     }
   });
 })();
@@ -37,8 +37,8 @@
         "h1, h2, h3, h4, h5, h6, p, small, b, strong"
       );
 
-      const data = getData();
-      const index = data.urls.findIndex((x) => x.address === link);
+      const data = get_data();
+      const index = data?.urls.findIndex((x) => x.address === link);
 
       if (index > -1) {
         data.urls[index].count = Number(data.urls[index].count) + 1;
@@ -59,7 +59,7 @@
           count: 0,
         });
       }
-      setData(data);
+      set_data(data);
 
       update_menu();
     }
@@ -117,7 +117,7 @@ function update_menu() {
 
 // sort data of MUL
 const getEventOFURLs = () => {
-  const data = getData();
+  const data = get_data();
   return data.urls
     .sort((p1, p2) => {
       if (p1.count < p2.count) return 1;
@@ -127,29 +127,3 @@ const getEventOFURLs = () => {
     .filter((item) => item.address !== window.location.href && item.count > 0)
     .slice(0, 8);
 };
-
-// data storage
-const STORAGE_KEY = "storage_uxperiment_bipa";
-
-const getData = () => {
-  const data = JSON.parse(localStorage.getItem(STORAGE_KEY));
-  return data;
-};
-
-const isDataAvailable = () => {
-  const data = getEventOFURLs();
-  return data.length > 0;
-};
-
-const setData = (data) => {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-};
-
-const defaultObj = {
-  urls: [],
-};
-
-(function setUpStorage() {
-  if (!localStorage.getItem(STORAGE_KEY))
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultObj));
-})();
