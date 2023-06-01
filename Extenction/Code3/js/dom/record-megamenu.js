@@ -6,8 +6,8 @@
 // shortcut for opening the megamenu
 (function show_megamenu() {
   document.addEventListener("keydown", function (event) {
-    if (event.ctrlKey && event.key === "m") {
-      const element = document.querySelectorAll("#bipa-menu-container")[0];
+    if (event.ctrlKey && (event.key === "m" || event.key === "ئ")) {
+      const element = document.querySelector("#bipa-menu-container");
       element.setAttribute("class", "hide");
     }
   });
@@ -16,8 +16,8 @@
 // shortcut for closing the megamenu
 (function hide_megamenu() {
   document.addEventListener("keydown", function (event) {
-    if (event.ctrlKey && event.key === ",") {
-      const element = document.querySelectorAll("#bipa-menu-container")[0];
+    if (event.ctrlKey && (event.key === "," || event.key === "و")) {
+      const element = document.querySelector("#bipa-menu-container");
       if (isDataAvailable()) element.removeAttribute("class");
     }
   });

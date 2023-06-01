@@ -3,7 +3,7 @@
 
 (function regex_search() {
   document.addEventListener("keydown", function (event) {
-    if (event.ctrlKey && event.key === "[") {
+    if (event.ctrlKey &&  (event.key === "[" || event.key === "ج")) {
       let search = prompt("Type here");
 
       highlightRegex(search);
@@ -22,7 +22,7 @@
 
 (function remove_regex_highlights() {
   document.addEventListener("keydown", function (event) {
-    if (event.ctrlKey && event.key === "]") {
+    if (event.ctrlKey &&  (event.key === "]" || event.key === "چ"))  {
       const classes = document.querySelectorAll(".BIPA-find-regex");
       classes.forEach((div) => {
         div.style = {};

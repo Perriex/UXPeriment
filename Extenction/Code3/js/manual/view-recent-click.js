@@ -18,7 +18,7 @@ let recentHighlightStyle = null;
 // scroll into view of last click
 (function () {
   document.addEventListener("keydown", function (event) {
-    if (event.ctrlKey && event.key === "b") {
+    if (event.ctrlKey && (event.key === "b" || event.key === "ذ")) {
       event.preventDefault();
       if (recentHighlight) {
         recentHighlight.style = recentHighlightStyle ?? {};
