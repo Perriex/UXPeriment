@@ -28,7 +28,7 @@ let recentHighlightStyle = null;
       recentHighlight = lastTrack;
       recentHighlightStyle = lastTrack?.style ?? {};
       if (lastTrack) {
-        lastTrack.style["background-color"] = "yellow";
+        lastTrack.style["background-color"] = "pink";
         lastTrack.style["color"] = "black";
         lastTrack.scrollIntoView({
           behavior: "smooth",

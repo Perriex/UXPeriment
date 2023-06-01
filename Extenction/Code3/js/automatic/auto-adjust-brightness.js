@@ -10,10 +10,21 @@ const calculate_decreasement = (precent, hours) => {
 
 (function auto_adjust_brightness() {
   window.addEventListener("DOMContentLoaded", function () {
-    console.log("called intervall");
     setInterval(() => {
       initDegree -= 1;
       changeBrightness(`${initDegree}%`);
     }, calculate_decreasement(40, 2));
   });
 })();
+
+// todo
+// reduce glare
+
+// todo
+// health care clock
+
+// todo
+// warn 20.20.20 rule
+
+// todo
+// add scale and standard coloring

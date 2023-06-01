@@ -16,8 +16,7 @@
       "js": [
         "startup.js",
         "js/automatic/add-lazy-loading-to-media.js",
-        "js/automatic/auto-adjust-brightness.js",
-        "js/automatic/block-ads.js"
+        "js/automatic/auto-adjust-brightness.js"
       ]
     },
     {

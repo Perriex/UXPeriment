@@ -7,3 +7,10 @@
     });
   });
 })();
+
+
+// todo
+// check internet speed and cancel large media
+
+// todo
+// check no-use UI and delete them

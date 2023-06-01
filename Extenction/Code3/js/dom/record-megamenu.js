@@ -1,5 +1,8 @@
 /* eslint-disable no-undef */
 
+// todo
+// add tree menu for large MUL
+
 // shortcut for opening the megamenu
 (function show_megamenu() {
   document.addEventListener("keydown", function (event) {

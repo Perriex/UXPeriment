@@ -1,10 +1,14 @@
+// todo
+// add pre/nxt button for switching between highlights
+
 (function regex_search() {
   document.addEventListener("keydown", function (event) {
     if (event.ctrlKey && event.key === "[") {
       let search = prompt("Type here");
 
       highlightRegex(search);
-
+      // todo
+      // add previous and next
       const firstMatch = document.querySelectorAll(".BIPA-find-regex")[0];
       if (firstMatch)
         firstMatch.scrollIntoView({
