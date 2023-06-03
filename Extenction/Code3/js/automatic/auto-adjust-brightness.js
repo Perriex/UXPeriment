@@ -11,6 +11,7 @@ const calculate_decreasement = (precent, hours) => {
 (function auto_adjust_brightness() {
   window.addEventListener("DOMContentLoaded", function () {
     setInterval(() => {
+      if (initDegree <= 40) return;
       initDegree -= 1;
       changeBrightness(`${initDegree}%`);
 
