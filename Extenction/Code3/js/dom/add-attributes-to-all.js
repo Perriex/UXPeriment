@@ -1,4 +1,6 @@
 (function start() {
+  // todo
+  // add loading when changing order in html
   const STORAGE_KEY2 = "storage_uxperiment_bipa";
 
   (function add_attributes_to_all() {
@@ -8,13 +10,13 @@
       const data = get_data_frequency();
 
       const elementsWithoutId = document.querySelectorAll(
-        `${list_of_unlimited_tags.join(", ").toLowerCase()} :not([id])`
+        `${list_of_unlimited_tags.join(":not([id]), ").toLowerCase()}`
       );
       elementsWithoutId.forEach((element) => {
         if (element.textContent)
           element.id = `generated-id-${getElementPath(element)}`;
-        const frequency = data.filter((item) => item.id === element.id);
-        if (frequency[0]) {
+        const frequency = data?.filter((item) => item.id === element.id);
+        if (frequency && frequency[0]) {
           element.setAttribute("frequency", frequency[0].frequency);
           const root_of_crowded_family = find_root_node(element);
           if (root_of_crowded_family.children.length < 3) return;

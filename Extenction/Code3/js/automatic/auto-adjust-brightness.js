@@ -13,6 +13,11 @@ const calculate_decreasement = (precent, hours) => {
     setInterval(() => {
       initDegree -= 1;
       changeBrightness(`${initDegree}%`);
+
+      console.log(
+        "%c BIPA watchs after you! the brightness of this page decreased.",
+        "background: #e8b3d0; color: #080808"
+      );
     }, calculate_decreasement(40, 2));
   });
 })();

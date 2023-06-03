@@ -23,7 +23,8 @@
         "js/manual/regex-search.js",
         "js/dom/record-megamenu.js",
         "js/dom/frequency-based-sort.js",
-        "js/dom/add-attributes-to-all.js"
+        "js/dom/add-attributes-to-all.js",
+        "js/dom/auto-apply-flow.js"
       ]
     },
     {
