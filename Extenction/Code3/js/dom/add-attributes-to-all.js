@@ -5,30 +5,22 @@
     const targetNode = document.querySelector("body");
 
     const observer = new MutationObserver(function () {
-      const elementsWithoutId = document.querySelectorAll(":not([id])");
-      elementsWithoutId.forEach((element, index) => {
-        element.id = `generated-id-${index}`;
-      });
+      const data = get_data_frequency();
 
-      const data = get_data2().click_frequency;
-      const items_with_frequency = data
-        .filter((item) => item.location === window.location.href)
-        .filter((selected) => selected.id.includes("#"));
+      const elementsWithoutId = document.querySelectorAll(
+        `${list_of_unlimited_tags.join(", ").toLowerCase()} :not([id])`
+      );
+      elementsWithoutId.forEach((element) => {
+        if (element.textContent)
+          element.id = `generated-id-${getElementPath(element)}`;
+        const frequency = data.filter((item) => item.id === element.id);
+        if (frequency[0]) {
+          console.log(element, frequency, data);
 
-      items_with_frequency.forEach((element) => {
-        try {
-          const ele = document.querySelector(element.id);
-
-          if (ele) {
-            ele.setAttribute("frequency", element.frequency);
-
-            const root_of_crowded_family = find_crowded_family(ele);
-            if (root_of_crowded_family.children.length < 3) return;
-            relocate_items(root_of_crowded_family.children);
-          }
-          console.log(ele, element);
-        } catch (err) {
-          console.log("FU");
+          element.setAttribute("frequency", frequency[0].frequency);
+          const root_of_crowded_family = find_root_node(element);
+          if (root_of_crowded_family.children.length < 3) return;
+          sort_on_frequency(root_of_crowded_family.children);
         }
       });
     });
@@ -38,14 +30,14 @@
     observer.observe(targetNode, config);
   })();
 
-  function find_crowded_family(node) {
+  function find_root_node(node) {
     if (node.children.length > 1) {
       return node;
     }
-    return find_crowded_family(node.parentNode);
+    return find_root_node(node.parentNode);
   }
 
-  function relocate_items(children_of_root) {
+  function sort_on_frequency(children_of_root) {
     children_of_root = Array.prototype.slice.call(children_of_root);
     if (
       children_of_root.filter((item) =>
@@ -67,8 +59,9 @@
     }
   }
 
-  const get_data2 = () => {
-    const data = JSON.parse(localStorage.getItem(STORAGE_KEY2));
+  const get_data_frequency = () => {
+    const data =
+      JSON.parse(localStorage.getItem(STORAGE_KEY2))?.click_frequency ?? [];
     return data;
   };
 
@@ -88,3 +81,22 @@
     "A",
   ];
 })();
+
+const getElementPath = function (el) {
+  var path = el.nodeName;
+  var parent = el.parentNode;
+  let i = 5;
+  while (parent && i) {
+    path = parent.nodeName + "/" + path;
+    parent = parent.parentNode;
+    i--;
+  }
+  return path + "/:" + hashCode(el.textContent.slice(0, 100));
+};
+
+function hashCode(str) {
+  return Array.from(str).reduce(
+    (s, c) => (Math.imul(31, s) + c.charCodeAt(0)) | 0,
+    0
+  );
+}

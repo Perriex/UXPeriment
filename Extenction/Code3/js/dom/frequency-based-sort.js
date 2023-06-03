@@ -5,7 +5,10 @@
     const child = e.target;
     if (!e.target.parentNode) return;
     increase_frequency(child);
-    const root_of_crowded_family = find_crowded_family(e.target.parentNode);
+    const root_of_crowded_family = find_crowded_family(
+      e.target.parentNode,
+      e.target
+    );
     if (root_of_crowded_family.children.length < 3) return;
     relocate_items(root_of_crowded_family.children);
   });
@@ -38,12 +41,10 @@ function relocate_items(children_of_root) {
 
 const save_new_frequency = (node) => {
   const data = get_data();
-  const selector = grenare_selector(node);
+  const selector = node.getAttribute("id");
   const frequency = node.getAttribute("frequency");
   if (!frequency) return;
-  const index = data.click_frequency.findIndex(
-    (x) => x.id === selector && x.location === window.location.href
-  );
+  const index = data.click_frequency.findIndex((x) => x.id === selector);
 
   if (index > -1) {
     data.click_frequency[index].frequency = frequency;
@@ -51,32 +52,18 @@ const save_new_frequency = (node) => {
     data.click_frequency.push({
       id: selector,
       frequency: frequency,
-      location: window.location.href,
     });
   }
-  console.log(data.click_frequency, selector, frequency);
 
   set_data(data);
 };
 
-function grenare_selector(node) {
-  console.log(node);
-  let selector = "";
-  const classes = node.getAttribute("class");
-  const tagName = node.tagName;
-  const id = node.getAttribute("id");
-  if (tagName) selector += tagName.toLowerCase();
-  if (id) selector += "#" + id;
-  if (classes) selector += "." + classes;
-  return selector;
-}
-
-function find_crowded_family(node) {
+function find_crowded_family(node, child) {
   if (node.children.length > 1) {
+    increase_frequency(child);
     return node;
   }
-  increase_frequency(node);
-  return find_crowded_family(node.parentNode);
+  return find_crowded_family(node.parentNode, node);
 }
 
 const get_frequncy = (node) => {

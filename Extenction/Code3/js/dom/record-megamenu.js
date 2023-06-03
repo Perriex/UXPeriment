@@ -87,6 +87,7 @@ function update_menu() {
   container.className = "hide";
 
   const menu = document.getElementById("bipa-menu-list");
+  if (!menu) return;
   while (menu.firstChild) {
     menu.removeChild(menu.firstChild);
   }
