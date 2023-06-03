@@ -1,5 +1,3 @@
-*record and apply to the menu
-
 *default values -> auto filled according to frequency(sorted drop down): 1 or 2 forms 
 
 auto apply filter 

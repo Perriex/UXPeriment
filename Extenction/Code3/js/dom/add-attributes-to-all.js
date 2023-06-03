@@ -58,9 +58,8 @@
   }
 
   const get_data_frequency = () => {
-    const data =
-      JSON.parse(localStorage.getItem(STORAGE_KEY2))?.click_frequency ?? [];
-    return data;
+    const data = JSON.parse(localStorage.getItem(STORAGE_KEY2));
+    return data.click_frequency !== 0 ? data.click_frequency : [];
   };
 
   const list_of_unlimited_tags = [
