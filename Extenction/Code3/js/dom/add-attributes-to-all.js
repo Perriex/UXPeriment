@@ -15,8 +15,6 @@
           element.id = `generated-id-${getElementPath(element)}`;
         const frequency = data.filter((item) => item.id === element.id);
         if (frequency[0]) {
-          console.log(element, frequency, data);
-
           element.setAttribute("frequency", frequency[0].frequency);
           const root_of_crowded_family = find_root_node(element);
           if (root_of_crowded_family.children.length < 3) return;

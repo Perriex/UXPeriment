@@ -6,9 +6,7 @@
 <script defer>
   const STORAGE_KEY = "storage_uxperiment_bipa";
   const data = JSON.parse(localStorage.getItem(STORAGE_KEY));
-  console.log(data);
   const menu = document.getElementById("bipa-menu-list");
-  console.log(menu);
 
   const links = [];
   data.urls.forEach((element) => {
@@ -17,7 +15,6 @@
     link.href = element.address;
     link.className = "bipa-menu-item";
     link.innerText = element.name;
-    console.log(link);
 
     menu.appendChild(link);
   });
