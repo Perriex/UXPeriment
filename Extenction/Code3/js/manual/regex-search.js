@@ -33,6 +33,7 @@
   });
 })();
 
+// process of searching all the DOM for the regex
 function highlightRegex(regex) {
   const body = document.querySelector("body");
 

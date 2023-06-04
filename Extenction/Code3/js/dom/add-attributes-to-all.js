@@ -1,6 +1,8 @@
 (function start() {
   // todo
   // add loading when changing order in html
+
+
   const STORAGE_KEY2 = "storage_uxperiment_bipa";
 
   (function add_attributes_to_all() {
@@ -9,6 +11,7 @@
     const observer = new MutationObserver(function () {
       const data = get_data_frequency();
 
+      // select elements without id
       const elementsWithoutId = document.querySelectorAll(
         `${list_of_unlimited_tags.join(":not([id]), ").toLowerCase()}`
       );
@@ -17,6 +20,7 @@
           element.id = `generated-id-${getElementPath(element)}`;
         const frequency = data?.filter((item) => item.id === element.id);
         if (frequency && frequency[0]) {
+          // if there was a frequency, add to the element
           element.setAttribute("frequency", frequency[0].frequency);
           const root_of_crowded_family = find_root_node(element);
           if (root_of_crowded_family.children.length < 3) return;
@@ -30,6 +34,7 @@
     observer.observe(targetNode, config);
   })();
 
+  // find the father of the tree
   function find_root_node(node) {
     if (node.children.length > 1) {
       return node;
@@ -37,6 +42,7 @@
     return find_root_node(node.parentNode);
   }
 
+  // relocate elemets based on the frequency
   function sort_on_frequency(children_of_root) {
     children_of_root = Array.prototype.slice.call(children_of_root);
     if (
@@ -81,6 +87,7 @@
   ];
 })();
 
+// find the path to this element and generate a unique id
 const getElementPath = function (el) {
   var path = el.nodeName;
   var parent = el.parentNode;
@@ -93,6 +100,7 @@ const getElementPath = function (el) {
   return path + "/:" + hashCode(el.textContent.slice(0, 100));
 };
 
+// hash of a string
 function hashCode(str) {
   return Array.from(str).reduce(
     (s, c) => (Math.imul(31, s) + c.charCodeAt(0)) | 0,

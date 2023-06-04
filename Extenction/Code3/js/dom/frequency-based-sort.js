@@ -1,11 +1,14 @@
 /* eslint-disable no-undef */
 
+// check if user activated the process
 const is_active = () => {
   const data = JSON.parse(localStorage.getItem(STORAGE_KEY));
   if (data.click_frequency === 0) return -1;
   return data.click_frequency ?? [];
 };
 
+
+// check and apply the process
 try {
   (function frequency_based_sort() {
     document.addEventListener("click", (e) => {
@@ -25,6 +28,7 @@ try {
   console.log(err);
 }
 
+// add shortcut for deactivate
 document.addEventListener("keydown", function (event) {
   if (event.ctrlKey && (event.key === ";" || event.key === "ک")) {
     if (is_active() !== -1) {
@@ -37,6 +41,7 @@ document.addEventListener("keydown", function (event) {
   }
 });
 
+// add shortcut for activate
 document.addEventListener("keydown", function (event) {
   if (event.ctrlKey && (event.key === "'" || event.key === "گ")) {
     if (is_active() === -1) {
@@ -49,12 +54,14 @@ document.addEventListener("keydown", function (event) {
   }
 });
 
+// increase the frequency of the node
 const increase_frequency = (node) => {
   const new_frequency = Number(node.getAttribute("frequency")) + 1 ?? 1;
   node.setAttribute("frequency", new_frequency);
   save_new_frequency(node);
 };
 
+// save data to the storage
 const save_new_frequency = (node) => {
   const data = get_data();
   if (data.click_frequency === 0) return;
@@ -75,10 +82,14 @@ const save_new_frequency = (node) => {
 
   set_data(data);
 };
+
+// get frequency of the node
 const get_frequncy = (node) => {
   return Number(node.getAttribute("frequency"));
 };
 
+
+// create the DOM from root again
 function relocate_items(children_of_root) {
   children_of_root = Array.prototype.slice.call(children_of_root);
   if (
@@ -98,6 +109,7 @@ function relocate_items(children_of_root) {
   }
 }
 
+// find the root
 function find_crowded_family(node, child) {
   if (node.children.length > 1) {
     increase_frequency(child);
