@@ -26,11 +26,6 @@
         "js/dom/add-attributes-to-all.js",
         "js/dom/auto-apply-flow.js"
       ]
-    },
-    {
-      "run_at": "document_idle",
-      "matches": ["http://*/*", "https://*/*"],
-      "js": ["js/manual/shadow-user.js"]
     }
   ],
   "background": {

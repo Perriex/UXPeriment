@@ -59,6 +59,7 @@ const default_obj = {
 };
 
 const check_pre_data = (pre_data, initial) => {
+  if (!pre_data || !initial) return false;
   const keys1 = Object.keys(pre_data).sort();
   const keys2 = Object.keys(initial).sort();
 
@@ -74,8 +75,10 @@ const check_pre_data = (pre_data, initial) => {
 
 (function setUpStorage() {
   const data = get_data();
-
-  if (!data) set_data(default_obj);
+  if (!data) {
+    set_data(default_obj);
+    return;
+  }
   const missed_keys = check_pre_data(data, default_obj);
   if (missed_keys) {
     missed_keys.forEach((k) => {

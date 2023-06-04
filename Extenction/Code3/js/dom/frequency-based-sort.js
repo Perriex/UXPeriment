@@ -3,15 +3,16 @@
 // check if user activated the process
 const is_active = () => {
   const data = JSON.parse(localStorage.getItem(STORAGE_KEY));
+  if (!data) return [];
   if (data.click_frequency === 0) return -1;
   return data.click_frequency ?? [];
 };
-
 
 // check and apply the process
 try {
   (function frequency_based_sort() {
     document.addEventListener("click", (e) => {
+      if (!list_of_unlimited_tags.includes(e.target.tagName)) return;
       if (is_active() === -1) return;
       const child = e.target;
       if (!e.target.parentNode) return;
@@ -88,7 +89,6 @@ const get_frequncy = (node) => {
   return Number(node.getAttribute("frequency"));
 };
 
-
 // create the DOM from root again
 function relocate_items(children_of_root) {
   children_of_root = Array.prototype.slice.call(children_of_root);
@@ -99,12 +99,15 @@ function relocate_items(children_of_root) {
   )
     return;
 
-  children_of_root.sort(function (a, b) {
+  const children_lower_2 = children_of_root.filter((i) => get_frequncy(i) < 5);
+  const children_upper_2 = children_of_root.filter((i) => get_frequncy(i) >= 5);
+  children_upper_2.sort(function (a, b) {
     return get_frequncy(a) > get_frequncy(b) ? -1 : 1;
   });
-  for (var i = 0, len = children_of_root.length; i < len; i++) {
-    var parent = children_of_root[i].parentNode;
-    var detatchedItem = parent.removeChild(children_of_root[i]);
+  const new_list = children_upper_2.concat(children_lower_2);
+  for (var i = 0, len = new_list.length; i < len; i++) {
+    var parent = new_list[i].parentNode;
+    var detatchedItem = parent.removeChild(new_list[i]);
     parent.appendChild(detatchedItem);
   }
 }
@@ -123,8 +126,6 @@ const list_of_unlimited_tags = [
   "LI",
   "DIV",
   "BUTTON",
-  "SMALL",
-  "BOLD",
   "H1",
   "H2",
   "H3",
@@ -132,4 +133,6 @@ const list_of_unlimited_tags = [
   "H5",
   "H6",
   "A",
+  "OPTION",
+  "SELECT",
 ];

@@ -2,7 +2,6 @@
   // todo
   // add loading when changing order in html
 
-
   const STORAGE_KEY2 = "storage_uxperiment_bipa";
 
   (function add_attributes_to_all() {
@@ -52,15 +51,24 @@
     )
       return;
 
-    children_of_root.sort(function (a, b) {
+    const children_lower_2 = children_of_root.filter(
+      (i) => Number(i.getAttribute("frequency")) < 5
+    );
+    const children_upper_2 = children_of_root.filter(
+      (i) => Number(i.getAttribute("frequency")) >= 5
+    );
+
+    children_upper_2.sort(function (a, b) {
       return Number(a.getAttribute("frequency")) >
         Number(b.getAttribute("frequency"))
         ? -1
         : 1;
     });
-    for (var i = 0, len = children_of_root.length; i < len; i++) {
-      var parent = children_of_root[i].parentNode;
-      var detatchedItem = parent.removeChild(children_of_root[i]);
+    const new_list = children_upper_2.concat(children_lower_2);
+
+    for (var i = 0, len = new_list.length; i < len; i++) {
+      var parent = new_list[i].parentNode;
+      var detatchedItem = parent.removeChild(new_list[i]);
       parent.appendChild(detatchedItem);
     }
   }
@@ -84,6 +92,11 @@
     "H5",
     "H6",
     "A",
+    "OPTION",
+    "SELECT",
+    "INPUT",
+    "FORM",
+    "LABEL",
   ];
 })();
 
@@ -97,7 +110,7 @@ const getElementPath = function (el) {
     parent = parent.parentNode;
     i--;
   }
-  return path + "/:" + hashCode(el.textContent.slice(0, 100));
+  return path + "/:" + hashCode(el.innerText.slice(0, 100));
 };
 
 // hash of a string
