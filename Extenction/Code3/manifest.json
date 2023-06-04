@@ -24,7 +24,7 @@
         "js/dom/record-megamenu.js",
         "js/dom/frequency-based-sort.js",
         "js/dom/add-attributes-to-all.js",
-        "js/dom/auto-apply-flow.js"
+        "js/dom/auto-suggest-input.js"
       ]
     }
   ],

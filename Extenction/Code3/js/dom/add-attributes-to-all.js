@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 (function start() {
   // todo
   // add loading when changing order in html
@@ -16,7 +17,7 @@
       );
       elementsWithoutId.forEach((element) => {
         if (element.textContent)
-          element.id = `generated-id-${getElementPath(element)}`;
+          element.id = `generated-id-${get_element_path(element)}`;
         const frequency = data?.filter((item) => item.id === element.id);
         if (frequency && frequency[0]) {
           // if there was a frequency, add to the element
@@ -100,23 +101,3 @@
   ];
 })();
 
-// find the path to this element and generate a unique id
-const getElementPath = function (el) {
-  var path = el.nodeName;
-  var parent = el.parentNode;
-  let i = 5;
-  while (parent && i) {
-    path = parent.nodeName + "/" + path;
-    parent = parent.parentNode;
-    i--;
-  }
-  return path + "/:" + hashCode(el.innerText.slice(0, 100));
-};
-
-// hash of a string
-function hashCode(str) {
-  return Array.from(str).reduce(
-    (s, c) => (Math.imul(31, s) + c.charCodeAt(0)) | 0,
-    0
-  );
-}

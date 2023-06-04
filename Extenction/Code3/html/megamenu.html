@@ -9,7 +9,7 @@
   const menu = document.getElementById("bipa-menu-list");
 
   const links = [];
-  data.urls.forEach((element) => {
+  data.recent_urls.forEach((element) => {
     if (!element.address) return;
     const link = document.createElement("a");
     link.href = element.address;

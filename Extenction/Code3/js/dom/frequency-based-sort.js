@@ -66,7 +66,7 @@ const increase_frequency = (node) => {
 const save_new_frequency = (node) => {
   const data = get_data();
   if (data.click_frequency === 0) return;
-  const selector = node.getAttribute("id");
+  const selector = node.getAttribute("id") ?? getElementPath(node);
   const frequency = node.getAttribute("frequency");
   if (!frequency) return;
   if (!Array.isArray(data.click_frequency)) return;

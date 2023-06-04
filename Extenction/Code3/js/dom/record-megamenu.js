@@ -38,19 +38,19 @@
       );
 
       const data = get_data();
-      const index = data?.urls.findIndex((x) => x.address === link);
+      const index = data?.recent_urls.findIndex((x) => x.address === link);
 
       if (index > -1) {
-        data.urls[index].count = Number(data.urls[index].count) + 1;
+        data.recent_urls[index].count = Number(data.recent_urls[index].count) + 1;
       } else if (images.length > 0) {
-        data.urls.push({
+        data.recent_urls.push({
           address: link,
           type: "img",
           count: 0,
           value: images[0].src,
         });
       } else {
-        data.urls.push({
+        data.recent_urls.push({
           address: link,
           value: word_break(
             titles.length > 0 ? titles[0].innerText : origin.innerText
@@ -119,7 +119,7 @@ function update_menu() {
 // sort data of MUL
 const getEventOFURLs = () => {
   const data = get_data();
-  return data.urls
+  return data.recent_urls
     .sort((p1, p2) => {
       if (p1.count < p2.count) return 1;
       if (p1.count > p2.count) return -1;

@@ -53,9 +53,9 @@ const unlock_reocord_frequency = () => {
 })();
 
 const default_obj = {
-  urls: [],
+  recent_urls: [],
   click_frequency: [],
-  default_inputs: [],
+  saved_inputs: [],
 };
 
 const check_pre_data = (pre_data, initial) => {
@@ -87,3 +87,24 @@ const check_pre_data = (pre_data, initial) => {
     set_data(data);
   }
 })();
+
+// find the path to this element and generate a unique id
+const get_element_path = function (el) {
+  var path = el.nodeName;
+  var parent = el.parentNode;
+  let i = 8;
+  while (parent && i) {
+    path = parent.nodeName + "/" + path;
+    parent = parent.parentNode;
+    i--;
+  }
+  return path + "/:" + hash_code(el.innerText.slice(0, 100));
+};
+
+// hash of a string
+function hash_code(str) {
+  return Array.from(str).reduce(
+    (s, c) => (Math.imul(31, s) + c.charCodeAt(0)) | 0,
+    0
+  );
+}
