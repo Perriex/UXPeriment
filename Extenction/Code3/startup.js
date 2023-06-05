@@ -1,5 +1,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
+
+// todo
+// remove old useless data from storage
+
 const STORAGE_KEY = "storage_uxperiment_bipa";
 const storage = localStorage;
 
@@ -16,7 +20,7 @@ const get_data = () => {
 };
 
 const is_data_available = () => {
-  const data = getEventOFURLs();
+  const data = get_event_of_URLs();
   return data.length > 0;
 };
 
@@ -52,6 +56,18 @@ const unlock_reocord_frequency = () => {
   }
 })();
 
+(function reset_storage() {
+  document.addEventListener("keydown", function (event) {
+    if (event.ctrlKey && event.key === "/") {
+      set_data(default_obj);
+      console.log(
+        "%c BIPA storage has been reset.",
+        "background: #0fbb; color: #2f2f2f"
+      );
+    }
+  });
+})();
+
 const default_obj = {
   recent_urls: [],
   click_frequency: [],
@@ -59,7 +75,6 @@ const default_obj = {
 };
 
 const check_pre_data = (pre_data, initial) => {
-  if (!pre_data || !initial) return false;
   const keys1 = Object.keys(pre_data).sort();
   const keys2 = Object.keys(initial).sort();
 
@@ -70,10 +85,10 @@ const check_pre_data = (pre_data, initial) => {
     }
   }
 
-  return missed_keys.length > 0 ? missed_keys : false;
+  return missed_keys;
 };
 
-(function setUpStorage() {
+(function setup_storage() {
   const data = get_data();
   if (!data) {
     set_data(default_obj);
@@ -92,7 +107,7 @@ const check_pre_data = (pre_data, initial) => {
 const get_element_path = function (el) {
   var path = el.nodeName;
   var parent = el.parentNode;
-  let i = 8;
+  let i = 8; // todo change it later
   while (parent && i) {
     path = parent.nodeName + "/" + path;
     parent = parent.parentNode;
@@ -107,4 +122,15 @@ function hash_code(str) {
     (s, c) => (Math.imul(31, s) + c.charCodeAt(0)) | 0,
     0
   );
+}
+
+// get date for data update
+function get_current_date() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+
+  const formatted_date = `${year}/${month}/${day}`;
+  return formatted_date;
 }

@@ -2,6 +2,7 @@
 
 // todo
 // add tree menu for large MUL
+// remove old dates, add date to the data
 
 // shortcut for opening the megamenu
 (function show_megamenu() {
@@ -19,6 +20,12 @@
     if (event.ctrlKey && (event.key === "," || event.key === "و")) {
       const element = document.querySelector("#bipa-menu-container");
       if (is_data_available()) element.removeAttribute("class");
+      else {
+        console.log(
+          "%c BIPA has no record of your flow on this website!",
+          "background: #f0a0d0; color: #fb2b4b"
+        );
+      }
     }
   });
 })();
@@ -39,17 +46,21 @@
 
       const data = get_data();
       const index = data?.recent_urls.findIndex((x) => x.address === link);
+      const date = get_current_date();
 
       if (index > -1) {
-        data.recent_urls[index].count = Number(data.recent_urls[index].count) + 1;
+        data.recent_urls[index].count =
+          Number(data.recent_urls[index].count) + 1;
+        data.recent_urls[index].date = date;
       } else if (images.length > 0) {
         data.recent_urls.push({
           address: link,
           type: "img",
           count: 0,
           value: images[0].src,
+          date: date,
         });
-      } else {
+      } else if (link.length > 0) {
         data.recent_urls.push({
           address: link,
           value: word_break(
@@ -57,6 +68,7 @@
           ),
           type: "title",
           count: 0,
+          date: date,
         });
       }
       set_data(data);
@@ -91,7 +103,7 @@ function update_menu() {
   while (menu.firstChild) {
     menu.removeChild(menu.firstChild);
   }
-  const data = getEventOFURLs();
+  const data = get_event_of_URLs();
   data.forEach((element) => {
     const li = document.createElement("li");
 
@@ -117,14 +129,18 @@ function update_menu() {
 }
 
 // sort data of MUL
-const getEventOFURLs = () => {
+const get_event_of_URLs = () => {
   const data = get_data();
+
   return data.recent_urls
-    .sort((p1, p2) => {
-      if (p1.count < p2.count) return 1;
-      if (p1.count > p2.count) return -1;
-      return 0;
+    .sort((a, b) => {
+      const dateComparison = new Date(b.date) - new Date(a.date);
+      if (dateComparison === 0) {
+        return b.count - a.count;
+      } else {
+        return dateComparison;
+      }
     })
     .filter((item) => item.address !== window.location.href && item.count > 0)
-    .slice(0, 8);
+    .slice(0, 8); // todo change it later
 };

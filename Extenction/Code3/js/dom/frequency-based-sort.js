@@ -1,5 +1,8 @@
 /* eslint-disable no-undef */
 
+// todo
+// remove old dates, add date to the data
+
 // check if user activated the process
 const is_active = () => {
   const data = JSON.parse(localStorage.getItem(STORAGE_KEY));
@@ -15,13 +18,12 @@ try {
       if (!list_of_unlimited_tags.includes(e.target.tagName)) return;
       if (is_active() === -1) return;
       const child = e.target;
-      if (!e.target.parentNode) return;
-      increase_frequency(child);
+      if (!child.parentNode) return;
       const root_of_crowded_family = find_crowded_family(
-        e.target.parentNode,
-        e.target
+        child.parentNode,
+        child
       );
-      if (root_of_crowded_family.children.length < 3) return;
+      if (root_of_crowded_family.children.length < 3) return; // todo check it later
       relocate_items(root_of_crowded_family.children);
     });
   })();
@@ -66,18 +68,21 @@ const increase_frequency = (node) => {
 const save_new_frequency = (node) => {
   const data = get_data();
   if (data.click_frequency === 0) return;
-  const selector = node.getAttribute("id") ?? getElementPath(node);
+  const selector = node.getAttribute("id") ?? get_element_path(node);
   const frequency = node.getAttribute("frequency");
   if (!frequency) return;
   if (!Array.isArray(data.click_frequency)) return;
   const index = data.click_frequency.findIndex((x) => x.id === selector);
+  const date = get_current_date();
 
   if (index > -1) {
     data.click_frequency[index].frequency = frequency;
+    data.click_frequency[index].date = date;
   } else {
     data.click_frequency.push({
       id: selector,
       frequency: frequency,
+      date: date,
     });
   }
 
@@ -99,8 +104,8 @@ function relocate_items(children_of_root) {
   )
     return;
 
-  const children_lower_2 = children_of_root.filter((i) => get_frequncy(i) < 5);
-  const children_upper_2 = children_of_root.filter((i) => get_frequncy(i) >= 5);
+  const children_lower_2 = children_of_root.filter((i) => get_frequncy(i) < 5); // todo change it later
+  const children_upper_2 = children_of_root.filter((i) => get_frequncy(i) >= 5); // todo change it later
   children_upper_2.sort(function (a, b) {
     return get_frequncy(a) > get_frequncy(b) ? -1 : 1;
   });

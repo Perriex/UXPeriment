@@ -53,10 +53,10 @@
       return;
 
     const children_lower_2 = children_of_root.filter(
-      (i) => Number(i.getAttribute("frequency")) < 5
+      (i) => Number(i.getAttribute("frequency")) < 5 // todo change it later
     );
     const children_upper_2 = children_of_root.filter(
-      (i) => Number(i.getAttribute("frequency")) >= 5
+      (i) => Number(i.getAttribute("frequency")) >= 5 // todo change it later
     );
 
     children_upper_2.sort(function (a, b) {
@@ -76,7 +76,8 @@
 
   const get_data_frequency = () => {
     const data = JSON.parse(localStorage.getItem(STORAGE_KEY2));
-    return data.click_frequency !== 0 ? data.click_frequency : [];
+    if (data) return data.click_frequency !== 0 ? data.click_frequency : [];
+    return [];
   };
 
   const list_of_unlimited_tags = [
@@ -100,4 +101,3 @@
     "LABEL",
   ];
 })();
-

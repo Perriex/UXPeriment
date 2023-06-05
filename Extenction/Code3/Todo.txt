@@ -12,3 +12,7 @@ test:
 - report: mvp & suggestions
 
 -- disable others
+
+
+- add policy and terms
+- add active/deactive
