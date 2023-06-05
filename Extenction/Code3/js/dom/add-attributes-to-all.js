@@ -27,6 +27,61 @@
           sort_on_frequency(root_of_crowded_family.children);
         }
       });
+
+      const inputElements = document.querySelectorAll("input");
+      const saved_inputs = get_data().saved_inputs;
+
+      inputElements.forEach((node) => {
+        if (
+          node.tagName === "INPUT" &&
+          !forbidden_input_types.includes(node.type)
+        ) {
+          const page_records = saved_inputs.filter(
+            (r) =>
+              r.location === window.location.href &&
+              r.type === node.type &&
+              r.name === node.name
+          );
+          if (page_records.length > 0) {
+            let suggested_inputs = [];
+
+            const dataArray = Object.entries(page_records[0].input).map(
+              ([key, value]) => ({
+                key,
+                ...value,
+              })
+            );
+
+            dataArray.reverse().sort((a, b) => {
+              const dateComparison = new Date(b.date) - new Date(a.date);
+              if (dateComparison === 0) {
+                return b.count - a.count;
+              } else {
+                return dateComparison;
+              }
+            });
+            suggested_inputs = dataArray.map((item) => item.key).slice(0, 5);
+
+            if (suggested_inputs.length === 0) return;
+
+            const id_element = "BIPA-suggest-word-" + node.name;
+            let dataList = document.querySelector("#" + id_element);
+            if (!dataList) {
+              dataList = document.createElement("datalist");
+              dataList.innerHTML = "";
+              node.setAttribute("autofilltype", "custom-autofill");
+              node.setAttribute("list", id_element);
+              dataList.id = id_element;
+              suggested_inputs.forEach((el) => {
+                let option = document.createElement("option");
+                option.value = el;
+                dataList.appendChild(option);
+              });
+              node.appendChild(dataList);
+            }
+          }
+        }
+      });
     });
 
     const config = { childList: true };
@@ -59,11 +114,16 @@
       (i) => Number(i.getAttribute("frequency")) >= 5 // todo change it later
     );
 
-    children_upper_2.sort(function (a, b) {
-      return Number(a.getAttribute("frequency")) >
-        Number(b.getAttribute("frequency"))
-        ? -1
-        : 1;
+    children_upper_2.reverse().sort((a, b) => {
+      const dateComparison = new Date(b.date) - new Date(a.date);
+      if (dateComparison === 0) {
+        return Number(a.getAttribute("frequency")) >
+          Number(b.getAttribute("frequency"))
+          ? -1
+          : 1;
+      } else {
+        return dateComparison;
+      }
     });
     const new_list = children_upper_2.concat(children_lower_2);
 
@@ -99,5 +159,18 @@
     "INPUT",
     "FORM",
     "LABEL",
+  ];
+
+  const forbidden_input_types = [
+    "password",
+    "submit",
+    "reset",
+    "hidden",
+    "image",
+    "button",
+    "search",
+    "color",
+    "file",
+    "select-multiple", // try on this later
   ];
 })();

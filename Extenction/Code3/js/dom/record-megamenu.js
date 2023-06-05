@@ -133,6 +133,7 @@ const get_event_of_URLs = () => {
   const data = get_data();
 
   return data.recent_urls
+    .reverse()
     .sort((a, b) => {
       const dateComparison = new Date(b.date) - new Date(a.date);
       if (dateComparison === 0) {

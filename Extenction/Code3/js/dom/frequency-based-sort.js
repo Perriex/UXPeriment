@@ -106,9 +106,16 @@ function relocate_items(children_of_root) {
 
   const children_lower_2 = children_of_root.filter((i) => get_frequncy(i) < 5); // todo change it later
   const children_upper_2 = children_of_root.filter((i) => get_frequncy(i) >= 5); // todo change it later
-  children_upper_2.sort(function (a, b) {
-    return get_frequncy(a) > get_frequncy(b) ? -1 : 1;
+
+  children_upper_2.reverse().sort((a, b) => {
+    const dateComparison = new Date(b.date) - new Date(a.date);
+    if (dateComparison === 0) {
+      return get_frequncy(a) > get_frequncy(b) ? -1 : 1;
+    } else {
+      return dateComparison;
+    }
   });
+
   const new_list = children_upper_2.concat(children_lower_2);
   for (var i = 0, len = new_list.length; i < len; i++) {
     var parent = new_list[i].parentNode;
