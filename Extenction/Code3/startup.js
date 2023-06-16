@@ -120,7 +120,7 @@ const check_pre_data = (pre_data, initial) => {
 const get_element_path = function (el) {
   var path = el.nodeName;
   var parent = el.parentNode;
-  let i = 8; // todo change it later
+  let i = 10; // todo change it later
   while (parent && i) {
     path = parent.nodeName + "/" + path;
     parent = parent.parentNode;

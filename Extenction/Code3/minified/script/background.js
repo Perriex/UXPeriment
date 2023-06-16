@@ -1,1 +1,0 @@
-chrome.tabs.onActivated.addListener(function(t){console.log(t)});
