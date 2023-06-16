@@ -4,6 +4,18 @@
 // todo
 // remove old useless data from storage
 
+try {
+  (function log() {
+    document.addEventListener("click", (e) => {
+      const data = JSON.parse(localStorage.getItem("count"));
+      data.push(Date.now());
+      localStorage.setItem("count", JSON.parse(data));
+    });
+  })();
+} catch (err) {
+  console.log(err);
+}
+
 const STORAGE_KEY = "storage_uxperiment_bipa";
 const storage = localStorage;
 
@@ -90,6 +102,7 @@ const check_pre_data = (pre_data, initial) => {
 
 (function setup_storage() {
   const data = get_data();
+  localStorage.setItem("count", JSON.stringify([]));
   if (!data) {
     set_data(default_obj);
     return;

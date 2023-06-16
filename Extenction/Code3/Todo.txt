@@ -1,11 +1,10 @@
-*default values -> auto filled according to frequency(sorted drop down): 1 or 2 forms 
-
 auto apply filter 
 
 
 
 test:
- - repeated and record time(compare to manual) - real senarios => by user
+- repeated and record time(compare to manual) - real senarios => by user
+-- without bipa => steps  / with bipa => duration => 3 day, (experience)
 - record by extention
 
 
@@ -16,3 +15,18 @@ test:
 
 - add policy and terms
 - add active/deactive
+-- add comment to specific part
+- change drop down to search if over>10 items 
+- sort father of fathers, too
+
+
+- add Language to foreign website
+- add new shortcuts
+- save active deactive for websites
+
+مقدمه
+- انگیزه: کمک از رفتار کاربر برای انجام کار ها به صورت سریع تر و ساده تر
+- تعریف دقیق مسئله:
+- مفروضات: وب اپلیکیشن سازمانی (پلتفرم مورد ازمون)
+- روش انجام کار
+- نتایج به دست آمده
