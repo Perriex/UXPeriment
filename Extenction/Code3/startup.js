@@ -9,7 +9,7 @@ try {
     document.addEventListener("click", (e) => {
       const data = JSON.parse(localStorage.getItem("count"));
       data.push(Date.now());
-      localStorage.setItem("count", JSON.parse(data));
+      localStorage.setItem("count", JSON.stringify(data));
     });
   })();
 } catch (err) {
