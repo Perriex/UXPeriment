@@ -126,8 +126,10 @@ function relocate_items(children_of_root) {
 
 // find the root
 function find_crowded_family(node, child) {
-  if (node.children.length > 1) {
+  if (!node) return;
+  if (node.children.length > 3) {
     increase_frequency(child);
+    find_crowded_family(node.parentNode);
     return node;
   }
   return find_crowded_family(node.parentNode, node);
